@@ -119,7 +119,7 @@ public class ProblemSet4 {
 	}
 	
 	public static String endsMeet(String str, int n) {
-		if(str == null || n % 2 == 0 || n <= 0 || n > str.length()) {
+		if(str == null || n <= 0 || n > str.length() || str.length() > 10 || str.length() < 1) {
 			return null;
 		}
 		else {
@@ -265,6 +265,9 @@ public class ProblemSet4 {
 	}
 
 	public static int addMe (String str, boolean digits) {
+		if(str == null) {
+			return -1;
+		}
 		for(int j = 0; j < str.length(); j++) {
 			if(str.charAt(j) == ' ') {
 				return -1;
@@ -285,19 +288,18 @@ public class ProblemSet4 {
 			}
 		}
 		else {
+			String output = "0";
 			int sumNums = 0;
-			int n = 0;
 			for(int i = 0; i < str.length(); i++) {
-				if(Character.isDigit(str.charAt(i))) {
-					int k = i + 1;
-					n = 0;
-					while(Character.isDigit(k)) {
-						n += 1;
-						k++;
-					}	
+				while(i + 1 <= str.length() && Character.isDigit(str.charAt(i))) {
+					output += str.charAt(i);
+					i++;
 				}
-				String case1 = str.substring(i, i + n);
-				sumNums += Integer.parseInt(case1);
+				if(i == str.length() || !Character.isDigit(str.charAt(i))) {
+					sumNums += Integer.parseInt(String.valueOf(output));
+					output = "0";
+				}
+				
 			}
 			if (sumNums > 0) {
 				return sumNums;
